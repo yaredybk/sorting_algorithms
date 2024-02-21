@@ -30,9 +30,13 @@ bool swap_array(int *array, int ind, int order)
  */
 void bubble_sort(int *array, size_t size)
 {
-	bool swaped = false;
 	size_t i;
-	size_t n = size;
+	size_t n;
+	bool swaped = false;
+
+	if (array == NULL || size == 0)
+		return;
+	n = size;
 
 	do {
 		size_t nn = 0;
