@@ -1,22 +1,28 @@
 #include "sort.h"
 
 /**
- * swap_array - swaps values of array at index ind and ind + 1
- * @array: main array to sort
- * @ind: index number to check
- * @order: 1 for ascending -1 for descending
+ * swap_list - swaps values of a and b if a > b
+ * @a: a doubly linked list node to be compared
+ * @b: a doubly linked list node to be compared
  *
  * Return: true if swaped, else false
  */
-bool swap_array(int *array, int ind, int order)
-{
-	if ((order && (array[ind] > array[ind + 1])) ||
-			(order < 0 && (array[ind] < array[ind + 1])))
-	{
-		int n = array[ind];
 
-		array[ind] = array[ind + 1];
-		array[ind + 1] = n;
+bool swap_list(listint_t *a, listint_t *b)
+{
+	if (a == b || a == NULL || b == NULL)
+		return (false);
+	if (a->n > b->n)
+	{
+		listint_t *temp = a->next;
+
+		a->next = b->next;
+		b->next = temp;
+
+		temp = a->prev;
+		a->prev = b->prev;
+		b->prev = temp;
+
 		return (true);
 	}
 	return (false);
@@ -44,7 +50,7 @@ void bubble_sort(int *array, size_t size)
 		swaped = false;
 		for (i = 0; i < n; i++)
 		{
-			swaped |= swap_array(array, i, 1);
+			swaped |= swap_list(array, i, 1);
 			if (swaped)
 				print_array(array, size);
 			nn = i;
