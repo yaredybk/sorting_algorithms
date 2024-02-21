@@ -8,11 +8,18 @@
  * Return: true if swaped, else false
  */
 
-bool swap_list(listint_t *a, listint_t *b)
+bool swap_list(listint_t *a)
 {
-	if (a == b || a == NULL || b == NULL)
+	listint_t *b;
+
+	if (a == NULL)
 		return (false);
-	if (a->n > b->n)
+	b = a->prev;
+	if (a == b || b == NULL)
+		return (false);
+	while(a->n < b->n && b->prev != NULL)
+		b = b->prev;
+	if (a->n < b->n)
 	{
 		listint_t *temp = a->next;
 
@@ -34,10 +41,13 @@ bool swap_list(listint_t *a, listint_t *b)
  * @array: input array of integers to be sorted
  * @size: size of array
  */
-void bubble_sort(int *array, size_t size)
+void insertion_sort_list(listint_t **list)
 {
-	size_t i;
-	size_t n;
+	listint_t *tmp1;
+
+	if (list == NULL || list->next == NULL)
+		return;
+	tmp1 = list;
 	bool swaped = false;
 
 	if (array == NULL || size == 0)
@@ -45,16 +55,15 @@ void bubble_sort(int *array, size_t size)
 	n = size;
 
 	do {
-		size_t nn = 0;
 
 		swaped = false;
-		for (i = 0; i < n; i++)
+		while (tmp1->prev)
 		{
-			swaped |= swap_list(array, i, 1);
+			swaped |= swap_list(list, i, 1);
+
 			if (swaped)
 				print_array(array, size);
-			nn = i;
 		}
-		n = nn;
+		tmp1 = tmp1->next
 	} while (swaped);
 }
