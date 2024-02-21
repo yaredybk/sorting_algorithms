@@ -1,10 +1,10 @@
+#ifndef SORT_H
+#define SORT_H
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
 
-
-#ifndef SORT_H
-#define SORT_H
 
 /**
  * struct listint_s - Doubly linked list node
@@ -53,18 +53,25 @@ bool swap_array(int *array, int ind, int order)
  * Return: true if swaped, else false
  */
 
-/*bool swap_list(listint_t *a, listint_t *b)
+bool swap_list(listint_t *a, listint_t *b)
 {
+	if (a == b || a == NULL || b == NULL) {
+        return false;
+    }
 	if(a->n > b->n)
 	{
-		int n = a->n;
-		a->n = b->n;
-		b->n = n;
-		return(true);
+		listint_t *temp = a->next;
+		a->next = b->next;
+		b->next = temp;
+
+		temp = a->prev;
+		a->prev = b->prev;
+		b->prev = temp;
+
+		return true;
 	}
 	return(false);
 }
-*/
 
 void bubble_sort(int *array, size_t size);
 #endif
