@@ -2,68 +2,84 @@
 
 /**
  * swap_list - swaps values of a and b if a > b
+ * @list: list pointer
  * @a: a doubly linked list node to be compared
- * @b: a doubly linked list node to be compared
  *
- * Return: true if swaped, else false
+ * Return: the next node in the list without checking tail NULL
  */
 
-bool swap_list(listint_t *a)
+listint_t *swap_list(listint_t **list, listint_t *a)
 {
-	listint_t *b;
+	listint_t *b, *c;
 
-	if (a == NULL)
-		return (false);
-	b = a->prev;
-	if (a == b || b == NULL)
-		return (false);
-	while(a->n < b->n && b->prev != NULL)
+	if(a == NULL)
+		return(a);
+	if (*list == a || a->prev == NULL || a->n >= a->prev->n)
+		return (a->next);
+	b = a;
+	do
+	{
 		b = b->prev;
+	} while(b->prev != NULL && a->n < b->prev->n);
+
 	if (a->n < b->n)
 	{
-		listint_t *temp = a->next;
+		if (a->prev == b)
+		{
+			listint_t *tmpa, *tmpb;
 
-		a->next = b->next;
-		b->next = temp;
+			tmpa = a->next;
+			tmpb = b->prev;
+			if (tmpb)
+				tmpb->next = a;
+			else if (b == *list)
+				*list = a;
+			b->next = tmpa;
+			a->next = b;
+			if (tmpa)
+				tmpa->prev = b;
+			b->prev = a;
+			a->prev = tmpb;
+			print_list(*list);
 
-		temp = a->prev;
-		a->prev = b->prev;
-		b->prev = temp;
+			return b->next;
+		}
 
-		return (true);
+		else
+		{
+			a->prev->next = a->next;
+			c = a->next;
+			if (c)
+				c->prev = a->prev;
+			if (b->prev)
+				b->prev->next = a;
+			else if (b == *list)
+				*list = a;
+			a->next = b;
+			a->prev = b->prev;
+			b->prev = a;
+			print_list(*list);
+			return (c);
+		}
 	}
-	return (false);
+	return (a->next);
 }
 
 /**
- * bubble_sort - sorts an array of integers in ascending order
+ * insertion_sort_list - sorts an list of integers in ascending order
  * using the Bubble sort algorithm
- * @array: input array of integers to be sorted
- * @size: size of array
+ * @list: input array of integers to be sorted
+ * Returns: true if swaped else false 
  */
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *tmp1;
 
-	if (list == NULL || list->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-	tmp1 = list;
-	bool swaped = false;
-
-	if (array == NULL || size == 0)
-		return;
-	n = size;
+	tmp1 = *list;
 
 	do {
-
-		swaped = false;
-		while (tmp1->prev)
-		{
-			swaped |= swap_list(list, i, 1);
-
-			if (swaped)
-				print_array(array, size);
-		}
-		tmp1 = tmp1->next
-	} while (swaped);
+		tmp1 = swap_list(list, tmp1);
+	} while (tmp1);
 }
