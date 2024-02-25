@@ -9,7 +9,7 @@
  */
 bool swap_array(int *array, int ind)
 {
-	if ((array[ind] > array[ind + 1]))
+	if (array[ind] > array[ind + 1])
 	{
 		int n = array[ind];
 
