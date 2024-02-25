@@ -9,7 +9,7 @@
  */
 bool swap_array(int *array, int ind)
 {
-	if (array[ind + 1] && (array[ind] > array[ind + 1]))
+	if ((array[ind] > array[ind + 1]))
 	{
 		int n = array[ind];
 
@@ -42,10 +42,15 @@ void bubble_sort(int *array, size_t size)
 		swaped = false;
 		for (i = 0; i < n - 1; i++)
 		{
-			swaped |= swap_array(array, i);
-			if (swaped)
+			if (swap_array(array, i))
+			{
+				swaped = true;
 				print_array(array, size);
-			nn = i + 1;
+			}
+			if (i == n - 2)
+				nn = i + 1;
+			else
+				nn = i;
 		}
 		n = nn;
 	} while (swaped);
