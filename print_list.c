@@ -24,7 +24,7 @@ void print_list(const listint_t *list)
 			break;
 	}
 	printf("\n");
-
+/*
 	i = 0;
 	while (list)
 	{
@@ -37,4 +37,5 @@ void print_list(const listint_t *list)
 			break;
 	}
 	printf("\n");
+	*/
 }
