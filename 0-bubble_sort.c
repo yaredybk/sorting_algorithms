@@ -42,13 +42,13 @@ void bubble_sort(int *array, size_t size)
 		size_t nn = 0;
 
 		swaped = false;
-		for (i = 0; i < n; i++)
+		for (i = 0; i < n - 1; i++)
 		{
 			swaped |= swap_array(array, i, 1);
 			if (swaped)
 				print_array(array, size);
 			nn = i;
 		}
-		n = nn;
+		n--;
 	} while (swaped);
 }
