@@ -49,6 +49,6 @@ void bubble_sort(int *array, size_t size)
 				print_array(array, size);
 			nn = i;
 		}
-		n--;
+		n = nn;
 	} while (swaped);
 }
